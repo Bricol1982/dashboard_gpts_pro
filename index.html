@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord des GPTs personnalisés</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Tableau de bord des GPTs personnalisés</h1>
+
+    <!-- Barre de recherche -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Rechercher un GPT..." onkeyup="searchGPTs()">
+    </div>
+
+    <!-- Boutons de bascule -->
+    <div class="button-group">
+        <button class="theme-toggle" onclick="toggleTheme()">Basculer en mode sombre</button>
+        <button class="view-toggle" onclick="toggleView()">Afficher en Liste</button>
+        <button class="detail-toggle" onclick="toggleDetail()">Mode Compact</button>
+    </div>
+
+    <!-- Filtre de catégorie -->
+    <div class="category-filter">
+        <label for="categoryFilter">Filtrer par catégorie :</label>
+        <select id="categoryFilter" onchange="filterByCategory()">
+            <option value="all">Toutes les catégories</option>
+            <option value="AWS">AWS</option>
+            <option value="Browser">Browser</option>
+            <option value="Coding">Coding</option>
+            <option value="System">System</option>
+            <option value="Language">Language</option>
+            <option value="Programming">Programming</option>
+            <option value="Cooking">Cooking</option>
+        </select>
+    </div>
+
+    <!-- Affichage en liste -->
+    <table id="gptTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Nom du GPT</th>
+                <th onclick="sortTable(1)">Catégorie</th>
+                <th>Description</th>
+                <th>Lien</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Tous les GPTs en mode liste -->
+            <tr data-category="Browser"><td>GPT Finder</td><td>Browser</td><td>The biggest directory of all publicly available best GPT models.</td><td><a href="https://chatgpt.com/g/g-LQ3c7maNd-gpt-finder-search-best-nogpts" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Browser"><td>SearchGPT</td><td>Browser</td><td>Moteur de recherche ChatGPT</td><td><a href="https://chatgpt.com/?hints=search" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Browser"><td>ChatGPT 4o</td><td>Browser</td><td>Idéal pour la plupart des tâches</td><td><a href="https://chatgpt.com/?model=gpt-4o" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Browser"><td>WebPilot</td><td>Browser</td><td>Search, Browse, Write & Agent. Action & API Offering.</td><td><a href="https://chatgpt.com/g/g-pNWGgUYqS-webpilot" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Browser"><td>Web Browser</td><td>Browser</td><td>Je peux naviguer sur le web pour vous aider à trouver des informations.</td><td><a href="https://chatgpt.com/g/g-xc7kwwGjB-web-browser" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="AWS"><td>AWS Cloud Architect & developer</td><td>AWS</td><td>Expert in AWS Cloud.</td><td><a href="https://chatgpt.com/g/g-CbdJhMyfi-aws-cloud-architect-developer" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="AWS"><td>Chef Guru</td><td>AWS</td><td>Your expert in Chef automation and cookbooks.</td><td><a href="https://chatgpt.com/g/g-0CARW1qjj-chef-guru" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="AWS"><td>CloudFormation expert</td><td>AWS</td><td>Generates AWS CloudFormation templates</td><td><a href="https://chatgpt.com/g/g-VjjQJ1Md7-cloudformation-expert" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Coding"><td>Code Copilot</td><td>Coding</td><td>Code Smarter, Build Faster—With the Expertise of a 10x Programmer by Your Side.</td><td><a href="https://chatgpt.com/g/g-2DQzU5UZl-code-copilot" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Coding"><td>Grimoire</td><td>Coding</td><td>Code Wizard.</td><td><a href="https://chatgpt.com/g/g-n7Rs0IK86-grimoire" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Coding"><td>Code</td><td>Coding</td><td>Reviews code, generates and optimizes functions, writes tests, and adds comments for existing code.</td><td><a href="https://chatgpt.com/g/g-k3IqoCe1l-code" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Coding"><td>Code GPT</td><td>Coding</td><td>The world's most powerful coding assistant Python JS HTML CSS.</td><td><a href="https://chatgpt.com/g/g-cksUvVWar-code-gpt-python-java-c-html-javascript-more" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Coding"><td>Python</td><td>Coding</td><td>A highly sophisticated GPT tailored for Python.</td><td><a href="https://chatgpt.com/g/g-cKXjWStaE-python" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Coding"><td>App Builder</td><td>Coding</td><td>Builds simple web apps with OpenAI APIs for beginners.</td><td><a href="https://chatgpt.com/g/g-Th6nv2nQQ-app-builder" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Sage"><td>Sage 100 Cloud Expert</td><td>Sage</td><td>Guide francophone pour Sage 100 Cloud, utilisant des manuels et ressources en ligne.</td><td><a href="https://chatgpt.com/g/g-XRu0fJVzA-sage-100-cloud-expert" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Sage"><td>Sage 100 Troubleshooter</td><td>Sage</td><td>Specializes in Sage 100 support and guidance.</td><td><a href="https://chatgpt.com/g/g-KG5hQObRA-sage-100-troubleshooter" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Citrix"><td>CitrxCyborg</td><td>Citrix</td><td>A technical Citrix troubleshooting assistant.</td><td><a href="https://chatgpt.com/g/g-mlBsLgEXU-citrxcyborg" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Citrix"><td>NetWiz</td><td>Citrix</td><td>A network engineer specializing in Citrix technologies.</td><td><a href="https://chatgpt.com/g/g-pIpqDHQzJ-netwiz" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="System"><td>Fedora</td><td>System</td><td>Swift and accurate Fedora Linux and GNOME assistant.</td><td><a href="https://chatgpt.com/g/g-uYAPPRYkt-fedora" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="System"><td>Linux Specialist</td><td>System</td><td>Expert in Linux, DevOps, and Infrastructure as Code.</td><td><a href="https://chatgpt.com/g/g-AaCO9ep8Y-linux-specialist" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="System"><td>Windows Server Whiz</td><td>System</td><td>Expert in Windows server management and troubleshooting.</td><td><a href="https://chatgpt.com/g/g-WFgDHvGPs-windows-server-whiz" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Programming"><td>PowerShell Experts</td><td>Programming</td><td>Helps you writing better PowerShell scripts.</td><td><a href="https://chatgpt.com/g/g-lVbzhyr6X-powershell-experts" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Programming"><td>PowerShell</td><td>Programming</td><td>Highly sophisticated PowerShell scripting copilot, with a focus on efficient, scalable and high-quality production code.</td><td><a href="https://chatgpt.com/g/g-aVP62L5EX-powershell" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Programming"><td>PowerShell Scripter</td><td>Programming</td><td>Expert in crafting robust, reusable PowerShell scripts.</td><td><a href="https://chatgpt.com/g/g-TU8ywwuuI-powershell-scripter" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Programming"><td>Bash Shell Script</td><td>Programming</td><td>Your personal highly sophisticated Unix & Linux Bash scripting copilot, with a focus on efficient, scalable and high-quality production code.</td><td><a href="https://chatgpt.com/g/g-YQhH6nop3-bash-shell-script" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Programming"><td>Batch Script Buddy</td><td>Programming</td><td>DOS Script expert aiding in batch file creation and optimization.</td><td><a href="https://chatgpt.com/g/g-EcWmyumlm-batch-script-buddy" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Language"><td>Traducteur anglais français</td><td>Language</td><td>Traducteur de langues en Français - Anglais et Anglais - Français.</td><td><a href="https://chatgpt.com/g/g-g0Y85t1Vj-traducteur-anglais-francais" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Language"><td>Reformulation De Texte</td><td>Language</td><td>Reformulez vos textes avec notre outil de reformulation, qui assure une écriture variée tout en conservant le sens initial.</td><td><a href="https://chatgpt.com/g/g-SMrZAgAKc-reformulation-de-texte" target="_blank">Ouvrir</a></td></tr>
+            <tr data-category="Cooking"><td>Recette cuisine</td><td>Cooking</td><td>Recette selon préférence, selon budget, selon ce qu'il y a dans le frigo.</td><td><a href="https://chatgpt.com/g/g-0PEdOfWcg-recette-cuisine" target="_blank">Ouvrir</a></td></tr>
+            <!-- Ajoutez d'autres GPTs ici -->
+        </tbody>
+    </table>
+
+    <!-- Affichage en cartes -->
+    <div id="cardContainer" class="card-container">
+        <div class="card" data-category="Browser"><div class="card-title">GPT Finder</div><div class="card-category">Browser</div><div class="card-description">The biggest directory of all publicly available best GPT models.</div><a href="https://chatgpt.com/g/g-LQ3c7maNd-gpt-finder-search-best-nogpts" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Browser"><div class="card-title">SearchGPT</div><div class="card-category">Browser</div><div class="card-description">Moteur de recherche ChatGPT.</div><a href="https://chatgpt.com/?hints=search" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Browser"><div class="card-title">ChatGPT 4o</div><div class="card-category">Browser</div><div class="card-description">Idéal pour la plupart des tâches.</div><a href="https://chatgpt.com/?model=gpt-4o" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Browser"><div class="card-title">WebPilot</div><div class="card-category">Browser</div><div class="card-description">Search, Browse, Write & Agent. Action & API Offering.</div><a href="https://chatgpt.com/g/g-pNWGgUYqS-webpilot" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Browser"><div class="card-title">Web Browser</div><div class="card-category">Browser</div><div class="card-description">Je peux naviguer sur le web pour vous aider à trouver des informations.</div><a href="https://chatgpt.com/g/g-xc7kwwGjB-web-browser" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="AWS"><div class="card-title">AWS Cloud Architect & developer</div><div class="card-category">AWS</div><div class="card-description">Expert in AWS Cloud.</div><a href="https://chatgpt.com/g/g-CbdJhMyfi-aws-cloud-architect-developer" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="AWS"><div class="card-title">Chef Guru</div><div class="card-category">AWS</div><div class="card-description">Your expert in Chef automation and cookbooks.</div><a href="https://chatgpt.com/g/g-0CARW1qjj-chef-guru" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="AWS"><div class="card-title">CloudFormation expert</div><div class="card-category">AWS</div><div class="card-description">Generates AWS CloudFormation templates.</div><a href="https://chatgpt.com/g/g-VjjQJ1Md7-cloudformation-expert" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Coding"><div class="card-title">Code Copilot</div><div class="card-category">Coding</div><div class="card-description">Code Smarter, Build Faster—With the Expertise of a 10x Programmer by Your Side.</div><a href="https://chatgpt.com/g/g-2DQzU5UZl-code-copilot" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Coding"><div class="card-title">Grimoire</div><div class="card-category">Coding</div><div class="card-description">Code Wizard.</div><a href="https://chatgpt.com/g/g-n7Rs0IK86-grimoire" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Coding"><div class="card-title">Code</div><div class="card-category">Coding</div><div class="card-description">Reviews code, generates and optimizes functions, writes tests, and adds comments for existing code.</div><a href="https://chatgpt.com/g/g-k3IqoCe1l-code" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Coding"><div class="card-title">Code GPT</div><div class="card-category">Coding</div><div class="card-description">The world's most powerful coding assistant Python JS HTML CSS.</div><a href="https://chatgpt.com/g/g-cksUvVWar-code-gpt-python-java-c-html-javascript-more" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Coding"><div class="card-title">Python</div><div class="card-category">Coding</div><div class="card-description">A highly sophisticated GPT tailored for Python.</div><a href="https://chatgpt.com/g/g-cKXjWStaE-python" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Coding"><div class="card-title">App Builder</div><div class="card-category">Coding</div><div class="card-description">Builds simple web apps with OpenAI APIs for beginners.</div><a href="https://chatgpt.com/g/g-Th6nv2nQQ-app-builder" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Sage"><div class="card-title">Sage 100 Cloud Expert</div><div class="card-category">Sage</div><div class="card-description">Guide francophone pour Sage 100 Cloud, utilisant des manuels et ressources en ligne.</div><a href="https://chatgpt.com/g/g-XRu0fJVzA-sage-100-cloud-expert" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Sage"><div class="card-title">Sage 100 Troubleshooter</div><div class="card-category">Sage</div><div class="card-description">Specializes in Sage 100 support and guidance.</div><a href="https://chatgpt.com/g/g-KG5hQObRA-sage-100-troubleshooter" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Sage"><div class="card-title">CitrxCyborg</div><div class="card-category">Citrix</div><div class="card-description">A technical Citrix troubleshooting assistant.</div><a href="https://chatgpt.com/g/g-mlBsLgEXU-citrxcyborg" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Sage"><div class="card-title">NetWiz</div><div class="card-category">Citrix</div><div class="card-description">A network engineer specializing in Citrix technologies.</div><a href="https://chatgpt.com/g/g-pIpqDHQzJ-netwiz" target="_blank">Ouvrir</a></div>        
+        <div class="card" data-category="System"><div class="card-title">Fedora</div><div class="card-category">System</div><div class="card-description">Swift and accurate Fedora Linux and GNOME assistant.</div><a href="https://chatgpt.com/g/g-uYAPPRYkt-fedora" target="_blank">Ouvrir</a></div> 
+        <div class="card" data-category="System"><div class="card-title">Linux Specialist</div><div class="card-category">System</div><div class="card-description">Expert in Linux, DevOps, and Infrastructure as Code.</div><a href="https://chatgpt.com/g/g-AaCO9ep8Y-linux-specialist" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="System"><div class="card-title">Windows Server Whiz</div><div class="card-category">System</div><div class="card-description">Expert in Windows server management and troubleshooting.</div><a href="https://chatgpt.com/g/g-WFgDHvGPs-windows-server-whiz" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Programming"><div class="card-title">PowerShell Experts</div><div class="card-category">Programming</div><div class="card-description">Helps you writing better PowerShell scripts.</div><a href="https://chatgpt.com/g/g-lVbzhyr6X-powershell-experts" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Programming"><div class="card-title">PowerShell</div><div class="card-category">Programming</div><div class="card-description">Highly sophisticated PowerShell scripting copilot, with a focus on efficient, scalable and high-quality production code.</div><a href="https://chatgpt.com/g/g-aVP62L5EX-powershell" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Programming"><div class="card-title">PowerShell Scripter</div><div class="card-category">Programming</div><div class="card-description">Expert in crafting robust, reusable PowerShell scripts.</div><a href="https://chatgpt.com/g/g-TU8ywwuuI-powershell-scripter" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Programming"><div class="card-title">Bash Shell Script</div><div class="card-category">Programming</div><div class="card-description">Your personal highly sophisticated Unix & Linux Bash scripting copilot, with a focus on efficient, scalable and high-quality production code.</div><a href="https://chatgpt.com/g/g-YQhH6nop3-bash-shell-script" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Programming"><div class="card-title">Batch Script Buddy</div><div class="card-category">Programming</div><div class="card-description">DOS Script expert aiding in batch file creation and optimization.</div><a href="https://chatgpt.com/g/g-EcWmyumlm-batch-script-buddy" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Language"><div class="card-title">Traducteur anglais français</div><div class="card-category">Language</div><div class="card-description">Traducteur de langues en Français - Anglais et Anglais - Français.</div><a href="https://chatgpt.com/g/g-g0Y85t1Vj-traducteur-anglais-francais" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Language"><div class="card-title">Reformulation De Texte</div><div class="card-category">Language</div><div class="card-description">Reformulez vos textes avec notre outil de reformulation, qui assure une écriture variée tout en conservant le sens initial.</div><a href="https://chatgpt.com/g/g-SMrZAgAKc-reformulation-de-texte" target="_blank">Ouvrir</a></div>
+        <div class="card" data-category="Cooking"><div class="card-title">Recette cuisine</div><div class="card-category">Cooking</div><div class="card-description">Recette selon préférence, selon budget, selon ce qu'il y a dans le frigo.</div><a href="https://chatgpt.com/g/g-0PEdOfWcg-recette-cuisine" target="_blank">Ouvrir</a></div>
+        <!-- Ajoutez d'autres cartes ici -->						
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
